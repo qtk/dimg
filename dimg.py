@@ -8,4 +8,7 @@ def show_index():
     '''
     The front "index" page
     '''
-    return "Running on Python {}".format(sys.version)
+    return bottle.static_file(filename="index.html", root="./static")
+
+if __name__ == "__main__":
+    bottle.run(app=dimg, host="localhost", port=8080)
