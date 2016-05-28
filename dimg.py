@@ -1,5 +1,5 @@
 import bottle
-import sys
+
 dimg = application = bottle.Bottle()
 
 
