@@ -20,7 +20,7 @@ def validate():
     image = bottle.request.files.get("img")
     filename = image.filename
     image.save(destination="img", overwrite=True)
-    bottle.redirect("/var/www/dimg/static/img/" + filename)
+    bottle.redirect("/static/img/" + filename)
 
 if __name__ == "__main__":
     bottle.run(app=dimg, host="localhost", port=8080)
