@@ -8,7 +8,7 @@ def show_index():
     '''
     :return The front "index" page
     '''
-    return bottle.static_file(filename="index.html", root="./static")
+    return bottle.static_file(filename="index.html", root="/var/www/dimg/static")
 
 
 @dimg.post("/validate")
@@ -20,7 +20,7 @@ def validate():
     image = bottle.request.files.get("img")
     filename = image.filename
     image.save(destination="img", overwrite=True)
-    return bottle.static_file(filename=filename, root="./img")
+    bottle.redirect("/var/www/dimg/static/img/" + filename)
 
 if __name__ == "__main__":
     bottle.run(app=dimg, host="localhost", port=8080)
