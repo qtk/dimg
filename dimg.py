@@ -1,7 +1,7 @@
 import bottle
 import logging
+from wsgilog import log
 
-logging.basicConfig(filename='debug.log', level=logging.DEBUG)
 # create logger
 logger = logging.getLogger('simple_example')
 logger.setLevel(logging.DEBUG)
@@ -19,24 +19,18 @@ ch.setFormatter(formatter)
 # add ch to logger
 logger.addHandler(ch)
 
+logging.basicConfig(filename='debug.log', level=logging.DEBUG)
+
 dimg = application = bottle.Bottle()
 
 
-@dimg.route("/")
-def show_index():
-    """
-    :return The front "index" page
-    """
-    return bottle.static_file(filename="index.html", root="/var/www/dimg")
-
-
+@log(tofile='debug.log')
 @dimg.post("/validate")
 def validate():
     """
     This page validates the uploaded file
     :return: A page with uploaded file
     """
-    print("Does uwsgi logging work?")
     image = bottle.request.files.get("img")
     filename = image.filename
     logger.debug("Uploaded image filename: {}".format(filename))
