@@ -37,6 +37,7 @@ def validate():
     This page validates the uploaded file
     :return: A page with uploaded file
     """
+    print("Does uwsgi logging work?")
     image = bottle.request.files.get("img")
     filename = image.filename
     logger.debug("Uploaded image filename: {}".format(filename))
