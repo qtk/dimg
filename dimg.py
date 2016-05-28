@@ -1,6 +1,7 @@
 import bottle
 import logging
 
+logging.basicConfig(filename='debug.log', level=logging.DEBUG)
 # create logger
 logger = logging.getLogger('simple_example')
 logger.setLevel(logging.DEBUG)
@@ -17,8 +18,6 @@ ch.setFormatter(formatter)
 
 # add ch to logger
 logger.addHandler(ch)
-
-logger.basicConfig(filename='debug.log', level=logging.DEBUG)
 
 dimg = application = bottle.Bottle()
 
