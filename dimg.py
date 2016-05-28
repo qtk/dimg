@@ -1,3 +1,4 @@
+import os
 import bottle
 import logging
 import random
@@ -9,7 +10,7 @@ dimg = application = bottle.Bottle()
 dimg.catchall = False
 
 def image_name(n):
-    return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(n))
+    return ''.join(random.choice(string.ascii_lowercasecase + string.digits) for _ in range(n))
 
 @dimg.post("/validate")
 def validate():
@@ -18,7 +19,8 @@ def validate():
     returns: A page with uploaded file
     """
     image = bottle.request.files.get("img")
-    image.filename = image_name(6)
+    extension = os.path.splitext(image.filename)
+    image.filename = image_name(6) + extension
     logging.debug("Uploaded image {}".format(image.filename))
     image.save(destination="/var/www/dimg/static/img", overwrite=True)
 
