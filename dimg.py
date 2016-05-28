@@ -10,7 +10,7 @@ dimg = application = bottle.Bottle()
 dimg.catchall = False
 
 def image_name(n):
-    return ''.join(random.choice(string.ascii_lowercasecase + string.digits) for _ in range(n))
+    return ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(n))
 
 @dimg.post("/validate")
 def validate():
