@@ -1,27 +1,14 @@
 import bottle
 import logging
-
-# create logger
-logger = logging.getLogger('simple_example')
-logger.setLevel(logging.DEBUG)
-
-# create console handler and set level to debug
-ch = logging.StreamHandler()
-ch.setLevel(logging.DEBUG)
-
-# create formatter
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-
-# add formatter to ch
-ch.setFormatter(formatter)
-
-# add ch to logger
-logger.addHandler(ch)
-
+import random
 logging.basicConfig(filename='debug.log', level=logging.DEBUG)
 
 dimg = application = bottle.Bottle()
 dimg.catchall = False
+
+def image_name(n):
+    return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(n))
+
 @dimg.post("/validate")
 def validate():
     """
@@ -29,8 +16,8 @@ def validate():
     returns: A page with uploaded file
     """
     image = bottle.request.files.get("img")
-    filename = image.filename
-    logger.debug("Uploaded image filename: {}".format(filename))
+    image.filename = image_name(6)
+    logging.debug("Uploaded image filename: {}".format(filename))
     image.save(destination="/var/www/dimg/static/img", overwrite=True)
 
     bottle.redirect("/static/img/" + filename)
