@@ -31,7 +31,7 @@ def validate():
     image = bottle.request.files.get("img")
     filename = image.filename
     logger.debug("Uploaded image filename: {}".format(filename))
-    image.save(destination="img", overwrite=True)
+    image.save(destination="/var/www/dimg/static/img", overwrite=True)
 
     bottle.redirect("/static/img/" + filename)
 
