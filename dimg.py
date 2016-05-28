@@ -19,7 +19,7 @@ def validate():
     returns: A page with uploaded file
     """
     image = bottle.request.files.get("img")
-    extension = os.path.splitext(image.filename)
+    extension = os.path.splitext(image.filename)[1]
     image.filename = image_name(6) + extension
     logging.debug("Uploaded image {}".format(image.filename))
     image.save(destination="/var/www/dimg/static/img", overwrite=True)
