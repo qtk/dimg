@@ -1,6 +1,8 @@
 import bottle
 import logging
 import random
+import string
+
 logging.basicConfig(filename='debug.log', level=logging.DEBUG)
 
 dimg = application = bottle.Bottle()
@@ -17,10 +19,10 @@ def validate():
     """
     image = bottle.request.files.get("img")
     image.filename = image_name(6)
-    logging.debug("Uploaded image filename: {}".format(filename))
+    logging.debug("Uploaded image {}".format(image.filename))
     image.save(destination="/var/www/dimg/static/img", overwrite=True)
 
-    bottle.redirect("/static/img/" + filename)
+    bottle.redirect("/static/img/" + image.filename)
 
 if __name__ == "__main__":
     bottle.run(app=dimg, host="localhost", port=8080)
