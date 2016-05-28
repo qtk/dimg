@@ -1,6 +1,5 @@
 import bottle
 import logging
-from wsgilog import log
 
 # create logger
 logger = logging.getLogger('simple_example')
@@ -22,14 +21,12 @@ logger.addHandler(ch)
 logging.basicConfig(filename='debug.log', level=logging.DEBUG)
 
 dimg = application = bottle.Bottle()
-
-
-@log(tofile='debug.log')
+dimg.catchall = False
 @dimg.post("/validate")
 def validate():
     """
     This page validates the uploaded file
-    :return: A page with uploaded file
+    returns: A page with uploaded file
     """
     image = bottle.request.files.get("img")
     filename = image.filename
